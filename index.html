@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách bài viết</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color1: #ffb4a1;
+      --color2: #b9e9ff;
+      --color3: #a6ffa6;
+      --color4: #f6ff00;
+      --color5: #cfb5f6;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f6f8;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 32px;
+      color: #333;
+    }
+
+    .title-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .title-box {
+      display: block;
+      border-radius: 16px;
+      padding: 20px;
+      text-decoration: none;
+      color: #222;
+      font-size: 18px;
+      font-weight: 500;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    }
+
+    .title-box:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      color: #0056b3;
+    }
+
+    .title-box:nth-child(5n+1) { background-color: var(--color1); }
+    .title-box:nth-child(5n+2) { background-color: var(--color2); }
+    .title-box:nth-child(5n+3) { background-color: var(--color3); }
+    .title-box:nth-child(5n+4) { background-color: var(--color4); }
+    .title-box:nth-child(5n+5) { background-color: var(--color5); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Danh sách bài viết</h1>
+    <div class="title-grid" id="post-list"></div>
+  </div>
+
+  <script>
+    const sheetURL = "https://docs.google.com/spreadsheets/d/1F11fUHWMQbHVtddpH2huBp6qYZy_XgqS0yuCIOjPIf0/gviz/tq?tqx=out:json&tq&gid=490826669";
+
+    fetch(sheetURL)
+      .then(res => res.text())
+      .then(text => {
+        const jsonText = text.match(/google\.visualization\.Query\.setResponse\(([\s\S\w]+)\);/)[1];
+        const data = JSON.parse(jsonText);
+        const rows = data.table.rows;
+
+        const postList = document.getElementById("post-list");
+
+      rows.slice(1).forEach(row => {
+          const title = row.c[1]?.v || "Không có tiêu đề";
+          const link  = row.c[2]?.v || "#";
+
+          const a = document.createElement("a");
+          a.href = link;
+          a.className = "title-box";
+          a.textContent = title;
+
+          postList.appendChild(a);
+        });
+      })
+      .catch(err => {
+        console.error("Lỗi khi tải dữ liệu Google Sheets:", err);
+        document.getElementById("post-list").innerHTML = "<p style='color:red'>Không thể tải dữ liệu.</p>";
+      });
+  </script>
+</body>
+</html>
