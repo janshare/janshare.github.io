@@ -414,7 +414,6 @@
     <div class="floating-star" style="top: 20%; right: 10%;">⭐</div>
     <div class="floating-cloud" style="top: 15%; left: 15%;">☁️</div>
     <div class="floating-heart" style="top: 60%; right: 5%;">💖</div>
-    <div class="floating-star" style="bottom: 30%; left: 8%;">✨</div>
     <div class="floating-cloud" style="bottom: 20%; right: 15%;">🌤️</div>
     <div class="floating-heart" style="top: 40%; left: 3%;">💝</div>
     <div class="floating-star" style="top: 70%; right: 20%;">🌟</div>
@@ -423,7 +422,7 @@
   <div class="container">
     <div class="header">
       <h1>📚 Danh sách bài viết</h1>
-      <p class="subtitle">Khám phá những bài viết siêu thú vị nhé! 🥰</p>
+      <p class="subtitle">Trang chủ Janshare.com 🥰</p>
       <div class="cute-divider">
         <span>🌸</span>
       </div>
@@ -454,8 +453,6 @@
 
   <script>
     const sheetURL = "https://docs.google.com/spreadsheets/d/1F11fUHWMQbHVtddpH2huBp6qYZy_XgqS0yuCIOjPIf0/gviz/tq?tqx=out:json&tq&gid=490826669";
-    
-    // Danh sách emoji dễ thương
     const cuteEmojis = [
       '🌸', '🌺', '🌻', '🌷', '🌹', '🌼', '🌿', '🍀', '🌱', '🌳',
       '🦋', '🐝', '🐞', '🐛', '🦄', '🐰', '🐱', '🐶', '🐼', '🐻',
@@ -483,11 +480,9 @@
         element.textContent = Math.floor(current);
       }, 16);
     }
-    
-    // Tạo hiệu ứng sparkle khi click
     document.addEventListener('click', function(e) {
       const sparkle = document.createElement('div');
-      sparkle.innerHTML = '✨';
+      sparkle.innerHTML = '❤️';
       sparkle.style.position = 'fixed';
       sparkle.style.left = e.clientX + 'px';
       sparkle.style.top = e.clientY + 'px';
@@ -501,8 +496,6 @@
         sparkle.remove();
       }, 1000);
     });
-    
-    // CSS cho hiệu ứng sparkle
     const style = document.createElement('style');
     style.textContent = `
       @keyframes sparkleEffect {
@@ -547,8 +540,6 @@
           a.appendChild(icon);
           a.appendChild(text);
           postList.appendChild(a);
-          
-          // Hiệu ứng xuất hiện từ từ
           setTimeout(() => {
             a.style.opacity = "0";
             a.style.transform = "translateY(30px) scale(0.8)";
@@ -561,13 +552,6 @@
           }, index * 150);
         });
         
-        // Hiển thị thống kê
-        setTimeout(() => {
-          stats.style.display = "flex";
-          animateNumber(totalPosts, rows.length);
-        }, rows.length * 150 + 500);
-        
-      })
       .catch(err => {
         document.getElementById("post-list").innerHTML = 
           '<div class="error">Không thể tải dữ liệu. Vui lòng thử lại sau nhé!</div>';
